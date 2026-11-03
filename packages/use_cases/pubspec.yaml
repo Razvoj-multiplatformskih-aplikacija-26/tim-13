@@ -1,0 +1,16 @@
+name: use_cases
+description: AgroFlow use cases and the ports through which they reach the platform.
+publish_to: none
+version: 0.1.0
+
+environment:
+  sdk: ^3.13.0
+resolution: workspace
+
+dependencies:
+  domain:
+    path: ../domain
+  equatable: 3.0.0
+
+dev_dependencies:
+  test: 1.31.1
