@@ -28,11 +28,14 @@ jobs:
         run: flutter analyze
 
       - name: Keep the shared packages free of platform code
-        run: "! grep -rE 'package:flutter|dart:io|dart:ffi|dart:js_interop' packages/domain/lib packages/use_cases/lib packages/blocs/lib"
+        run: "! grep -rE 'package:flutter|dart:io|dart:ffi|dart:js_interop' packages/domain/lib packages/api_contract/lib packages/use_cases/lib packages/blocs/lib"
+
+      - name: Keep the contract independent of the domain
+        run: "! grep -rE 'package:(domain|use_cases|blocs)/' packages/api_contract/lib"
 
       - name: Test shared packages on the VM and in Chrome
         run: |
-          for package in packages/domain packages/use_cases packages/blocs; do
+          for package in packages/domain packages/api_contract packages/use_cases packages/blocs; do
             (cd "${package}" && dart test -p vm,chrome)
           done
 

@@ -1,0 +1,22 @@
+abstract final class ErrorCodes {
+  static const invalidHectares = 'invalid-hectares';
+  static const invalidFuelAmount = 'invalid-fuel-amount';
+  static const invalidMaterialQuantity = 'invalid-material-quantity';
+  static const reasonRequired = 'reason-required';
+  static const reasonTooLong = 'reason-too-long';
+  static const invalidInterval = 'invalid-interval';
+  static const exceedsParcelArea = 'exceeds-parcel-area';
+  static const previousPhaseNotDone = 'previous-phase-not-done';
+  static const insufficientStock = 'insufficient-stock';
+  static const materialRequired = 'material-required';
+  static const workerBusy = 'worker-busy';
+  static const machineBusy = 'machine-busy';
+  static const invalidTransition = 'invalid-transition';
+  static const notAllowed = 'not-allowed';
+  static const notFound = 'not-found';
+  static const badRequest = 'bad-request';
+  static const serverError = 'server-error';
+  static const invalidCredentials = 'invalid-credentials';
+  static const sessionExpired = 'session-expired';
+  static const signInRequired = 'sign-in-required';
+}
