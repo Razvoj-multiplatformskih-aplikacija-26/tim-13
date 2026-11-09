@@ -5,7 +5,7 @@ import '../work_book.dart';
 abstract interface class WorkOrderRepository {
   Future<WorkBook> workBook();
 
-  Future<WorkOrderId> nextId();
+  Future<Result<WorkOrder>> create(NewWorkOrder order);
 
-  Future<WorkOrder> save(WorkOrder order);
+  Future<Result<WorkOrder>> save(WorkOrder order, {required WorkOrderStage from});
 }

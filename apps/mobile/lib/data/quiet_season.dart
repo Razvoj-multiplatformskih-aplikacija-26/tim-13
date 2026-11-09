@@ -8,8 +8,8 @@ final class QuietSeason implements WorkOrderRepository {
   Future<WorkBook> workBook() async => const WorkBook.empty();
 
   @override
-  Future<WorkOrderId> nextId() async => const WorkOrderId('tiha-sezona');
+  Future<Result<WorkOrder>> create(NewWorkOrder order) async => Success(order.withId(const WorkOrderId('tiha-sezona')));
 
   @override
-  Future<WorkOrder> save(WorkOrder order) async => order;
+  Future<Result<WorkOrder>> save(WorkOrder order, {required WorkOrderStage from}) async => const Failure(NotFound());
 }

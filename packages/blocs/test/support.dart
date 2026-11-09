@@ -60,11 +60,15 @@ final class FakeRepository implements WorkOrderRepository {
   }
 
   @override
-  Future<WorkOrderId> nextId() async => const WorkOrderId('new');
+  Future<Result<WorkOrder>> create(NewWorkOrder order) async {
+    final created = order.withId(const WorkOrderId('new'));
+    orders = [...orders, created];
+    return Success(created);
+  }
 
   @override
-  Future<WorkOrder> save(WorkOrder order) async {
+  Future<Result<WorkOrder>> save(WorkOrder order, {required WorkOrderStage from}) async {
     orders = [...orders.where((o) => o.id != order.id), order];
-    return order;
+    return Success(order);
   }
 }

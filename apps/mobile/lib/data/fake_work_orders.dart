@@ -38,17 +38,21 @@ final class FakeWorkOrders implements WorkOrderRepository {
   }
 
   @override
-  Future<WorkOrderId> nextId() async => WorkOrderId('lokalni-${_nextId++}');
+  Future<Result<WorkOrder>> create(NewWorkOrder order) async {
+    await _roundTrip();
+    final created = order.withId(WorkOrderId('lokalni-${_nextId++}'));
+    _orders.add(created);
+    return Success(created);
+  }
 
   @override
-  Future<WorkOrder> save(WorkOrder order) async {
+  Future<Result<WorkOrder>> save(WorkOrder order, {required WorkOrderStage from}) async {
     await _roundTrip();
     final index = _orders.indexWhere((o) => o.id == order.id);
-    if (index < 0) {
-      _orders.add(order);
-    } else {
-      _orders[index] = order;
-    }
-    return order;
+    if (index < 0) return const Failure(NotFound());
+    final current = _orders[index].status.stage;
+    if (current != from) return Failure(InvalidTransition(from: current, to: order.status.stage));
+    _orders[index] = order;
+    return Success(order);
   }
 }
