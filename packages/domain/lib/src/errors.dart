@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 
 import 'farm/agro_operation.dart';
 import 'identifiers.dart';
+import 'work_order/fuel_liters.dart';
 import 'work_order/hectares.dart';
+import 'work_order/reason_text.dart';
 import 'work_order/work_order_status.dart';
 
 sealed class DomainError extends Equatable {
@@ -17,7 +19,12 @@ final class InvalidHectares extends DomainError {
 }
 
 final class InvalidFuelAmount extends DomainError {
-  const InvalidFuelAmount();
+  const InvalidFuelAmount({this.max = FuelLiters.max});
+
+  final int max;
+
+  @override
+  List<Object?> get props => [max];
 }
 
 final class InvalidMaterialQuantity extends DomainError {
@@ -29,12 +36,13 @@ final class ReasonRequired extends DomainError {
 }
 
 final class ReasonTooLong extends DomainError {
-  const ReasonTooLong(this.length);
+  const ReasonTooLong(this.length, {this.max = ReasonText.maxLength});
 
   final int length;
+  final int max;
 
   @override
-  List<Object?> get props => [length];
+  List<Object?> get props => [length, max];
 }
 
 final class InvalidInterval extends DomainError {
