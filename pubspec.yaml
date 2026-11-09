@@ -11,6 +11,7 @@ workspace:
   - packages/domain
   - packages/api_contract
   - packages/use_cases
+  - packages/api_mapping
   - packages/blocs
   - packages/ui
 
