@@ -180,9 +180,8 @@ void main() {
   });
 
   group('planWorkOrder', () {
-    Result<WorkOrder> plan({AgroOperation operation = AgroOperation.plowing, User by = owner, MaterialUse? use}) =>
+    Result<NewWorkOrder> plan({AgroOperation operation = AgroOperation.plowing, User by = owner, MaterialUse? use}) =>
         planWorkOrder(
-          id: const WorkOrderId('new'),
           parcelId: parcel.id,
           operation: operation,
           workerId: worker.id,
@@ -193,8 +192,10 @@ void main() {
           by: by,
         );
 
-    test('creates a planned order', () {
-      expect(plan().valueOrNull?.status, const Planned());
+    test('creates a planned order once it gets an id', () {
+      final created = plan().valueOrNull!.withId(const WorkOrderId('n-99'));
+      expect(created.id, const WorkOrderId('n-99'));
+      expect(created.status, const Planned());
     });
 
     test('only the owner plans', () {

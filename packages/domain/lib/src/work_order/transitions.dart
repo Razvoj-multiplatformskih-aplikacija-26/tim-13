@@ -7,6 +7,7 @@ import '../result.dart';
 import '../user.dart';
 import 'access_policy.dart';
 import 'material_use.dart';
+import 'new_work_order.dart';
 import 'reason_text.dart';
 import 'rules.dart';
 import 'work_interval.dart';
@@ -32,8 +33,7 @@ Set<WorkOrderAction> availableActions(WorkOrder order, {required User by}) {
 Failure<WorkOrder> _invalid(WorkOrder order, WorkOrderStage to) =>
     Failure(InvalidTransition(from: order.status.stage, to: to));
 
-Result<WorkOrder> planWorkOrder({
-  required WorkOrderId id,
+Result<NewWorkOrder> planWorkOrder({
   required ParcelId parcelId,
   required AgroOperation operation,
   required UserId workerId,
@@ -48,8 +48,7 @@ Result<WorkOrder> planWorkOrder({
   final error = assignmentError(workerId: workerId, machineId: machineId, interval: interval, orders: orders);
   if (error != null) return Failure(error);
   return Success(
-    WorkOrder(
-      id: id,
+    NewWorkOrder(
       parcelId: parcelId,
       operation: operation,
       workerId: workerId,

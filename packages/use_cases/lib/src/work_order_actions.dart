@@ -90,7 +90,6 @@ final class PlanWorkOrder {
   }) async {
     final book = await repository.workBook();
     final result = planWorkOrder(
-      id: await repository.nextId(),
       parcelId: parcelId,
       operation: operation,
       workerId: workerId,
@@ -102,7 +101,7 @@ final class PlanWorkOrder {
     );
     return switch (result) {
       Failure(:final error) => Failure(error),
-      Success(:final value) => Success(await repository.save(value)),
+      Success(:final value) => Success(await repository.save(value.withId(await repository.nextId()))),
     };
   }
 }

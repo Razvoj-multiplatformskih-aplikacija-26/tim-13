@@ -10,6 +10,7 @@ export 'src/work_order/access_policy.dart';
 export 'src/work_order/fuel_liters.dart';
 export 'src/work_order/hectares.dart';
 export 'src/work_order/material_use.dart';
+export 'src/work_order/new_work_order.dart';
 export 'src/work_order/reason_text.dart';
 export 'src/work_order/rules.dart';
 export 'src/work_order/transitions.dart';
